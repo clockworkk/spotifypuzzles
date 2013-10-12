@@ -27,13 +27,15 @@ def compare_values(songs, z_value):
     for index,item in enumerate(songs):
         n = index+1
         expected_score = z_value/n
-        quality = int(item[0]) - expected_score
+        quality = int(item[0]) / expected_score
         item.append(quality)
         item.append(n)
 
-    songs.sort(key=lambda x: x[2])
-    songs.reverse()
-    #songs.sort(lambda x,y: cmp(y[2], x[2]))            
+    #songs.sort(key=lambda x: x[2])
+    #songs.reverse()
+
+    #Handle == cases and sort properly
+    songs.sort(lambda x,y: cmp(y[2], x[2]))            
     return songs
 
 '''
@@ -48,6 +50,9 @@ def final_results(songs, songs_to_select):
         count += 1
 
 '''
+Read in stdin
+Create the list of songs with their matching times played
+Calculate the total number of time each song is played
 '''
 def main():
     songs = []
@@ -55,20 +60,26 @@ def main():
     z_value = 0
     total_number_of_listens = 0
 
+    #Generate the n and m values: number of songs and songs to select
     [number_of_songs,songs_to_select] = raw_input().split(" ")
 
+    #Create the list
     for x in range(0,int(number_of_songs)):
         line = raw_input().replace("\n","")
         line = line.split(" ")
         songs.append(line)
 
+    #Find the Total number of listens for all songs
     for item in songs:
         total_number_of_listens += int(item[0])
 
-    #Call zips_value
+    #Call zipfs_value
     z_value = zipfs_value(total_number_of_listens, number_of_songs)
    
+    #Get the sorted list of songs
     sorted_songs = compare_values(songs, z_value)
+
+    #Send the sorted list of songs to get the top m amount of songs
     final_results(sorted_songs, songs_to_select)
 
 
