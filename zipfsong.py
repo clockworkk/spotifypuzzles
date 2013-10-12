@@ -43,11 +43,13 @@ final_results:
 Takes the formatted list and prints the top songs based on songs_to_select
 '''
 def final_results(songs, songs_to_select):
+    result = ''
     songs_to_select = int(songs_to_select)
     count = 0
     while (count < songs_to_select):
-        print(songs[count][1])
+        result += (songs[count][1]) + '\n'
         count += 1
+    return result
 
 '''
 Read in stdin
@@ -59,6 +61,7 @@ def main():
     sorted_songs = []
     z_value = 0
     total_number_of_listens = 0
+    final_answer = ''
 
     #Generate the n and m values: number of songs and songs to select
     [number_of_songs,songs_to_select] = raw_input().split(" ")
@@ -80,8 +83,8 @@ def main():
     sorted_songs = compare_values(songs, z_value)
 
     #Send the sorted list of songs to get the top m amount of songs
-    final_results(sorted_songs, songs_to_select)
-
+    final_answer = final_results(sorted_songs, songs_to_select)
+    print(final_answer)
 
 if __name__ == '__main__':
     main()
