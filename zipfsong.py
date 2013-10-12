@@ -47,9 +47,8 @@ def final_results(songs, songs_to_select):
     songs_to_select = int(songs_to_select)
     count = 0
     while (count < songs_to_select):
-        result += (songs[count][1]) + '\n'
+        print(songs[count][1])
         count += 1
-    return result
 
 '''
 Read in stdin
@@ -66,6 +65,13 @@ def main():
     #Generate the n and m values: number of songs and songs to select
     [number_of_songs,songs_to_select] = raw_input().split(" ")
 
+    if(int(songs_to_select) > int(number_of_songs)):
+        exit(0)
+    if(int(number_of_songs) < 0):
+        exit(0)
+    if(int(number_of_songs) > 50000):
+        exit(0)
+    
     #Create the list
     for x in range(0,int(number_of_songs)):
         line = raw_input().replace("\n","")
@@ -83,8 +89,7 @@ def main():
     sorted_songs = compare_values(songs, z_value)
 
     #Send the sorted list of songs to get the top m amount of songs
-    final_answer = final_results(sorted_songs, songs_to_select)
-    print(final_answer)
+    final_results(sorted_songs, songs_to_select)
 
 if __name__ == '__main__':
     main()
